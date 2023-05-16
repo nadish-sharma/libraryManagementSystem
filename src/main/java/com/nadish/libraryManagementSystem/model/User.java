@@ -10,33 +10,26 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Document(collection = "book")
+@Document(collection = "user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+public class User {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private ObjectId id;
     @NotBlank(message = "This field can't be empty")
-    private String bookId;
+    private String userId;
     @NotBlank(message = "This field can't be empty")
-    private String authorName;
+    private String firstName;
     @NotBlank(message = "This field can't be empty")
-    private String title;
-    //    @NotBlank(message = "This field can't be empty")
-    private String publication;
+    private String lastName;
     @NotBlank(message = "This field can't be empty")
-    private String isbn;
+    private String email;
     @NotBlank(message = "This field can't be empty")
-    private boolean isAvailable;
+    private String password;
     @NotBlank(message = "This field can't be empty")
-    private String description;
-
-    private boolean isLibraryBook = true;
-//    @NotBlank(message = "This field can't be empty")
-    private String amount = "FREE";
-    private Object img;
+    private boolean isAdmin;
 }
 
 
