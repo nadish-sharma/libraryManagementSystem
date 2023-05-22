@@ -16,7 +16,7 @@ import java.util.Optional;
 public class BookService {
     @Autowired //We want the framework to instantiate this(BookRepository) class for us
     private BookRepository BookRepository;
-    public List<Book> allBooks() {
+    public List<Book> getAllBooks() {
         return BookRepository.findAll();
     }
     //    public Optional<Book> singleBook(ObjectId id) {
@@ -37,20 +37,26 @@ public class BookService {
         return BookRepository.save(book);
     }
 
-//    public Book updateBook(String bookId, Book updatedBook) {
-//        Optional<Book> optionalBook = BookRepository.findBooksByTitle(bookId);
-//        if (optionalBook.isPresent()) {
-//            Book book = optionalBook.get();
-//            book.setTitle(updatedBook.getTitle());
-//            book.setAuthorName(updatedBook.getAuthorName());
-//            book.setIsbn(updatedBook.getIsbn());
-////            book.setPassword(updatedBook.getPassword());
-//            return BookRepository.save(book);
-//        } else {
-//            throw new ResourceNotFoundException("Book not found with BookId: " + bookId);
-//        }
-//
-//    }
+    public Book updateBook(String bookId, Book updatedBook) {
+        Optional<Book> optionalBook = BookRepository.findBooksByBookId(bookId);
+        if (!optionalBook.isEmpty()) {
+            Book book = optionalBook.get();
+            book.setTitle(updatedBook.getTitle());
+            book.setAuthorName(updatedBook.getAuthorName());
+            book.setIsbn(updatedBook.getIsbn());
+            book.setBookId(updatedBook.getBookId());
+            book.setDescription(updatedBook.getDescription());
+            book.setPublication(updatedBook.getPublication());
+            book.setAvailable(updatedBook.isAvailable());
+            book.setLibraryBook(updatedBook.isLibraryBook());
+            book.setThumbnail(updatedBook.getThumbnail());
+//            book.setPassword(updatedBook.getPassword());
+            return BookRepository.save(book);
+        } else {
+            throw new ResourceNotFoundException("Book not found with bookId: " + bookId);
+        }
+
+    }
 
 //    public List<Book> getBooksByAdminStatus(boolean isAvailable) {
 //        return BookRepository.findByIsAvailable(isAvailable);

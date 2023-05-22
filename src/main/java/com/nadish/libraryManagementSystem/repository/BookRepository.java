@@ -13,11 +13,14 @@ import java.util.Optional;
 public interface BookRepository extends MongoRepository<Book, ObjectId> {
 //    Optional<Book> findBookByBookId(String bookId);
     List<Book> findBooksByTitle(String title);
+    List<Book> findAll();
     @Query("{ 'title' : { $regex: ?0, $options: 'i' } }")
     List<Book> findBooksByPartialTitle(String title);
 
     Optional<Book> findBookByIsbn(String isbn);
     void deleteByBookId(String bookId);
+
+    Optional<Book> findBooksByBookId(String bookId);
 
     //User  findByIsbn(String isbn);
 }

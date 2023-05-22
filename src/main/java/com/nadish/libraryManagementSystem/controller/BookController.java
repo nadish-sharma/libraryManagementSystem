@@ -1,5 +1,6 @@
 package com.nadish.libraryManagementSystem.controller;
 import com.nadish.libraryManagementSystem.model.Book;
+import com.nadish.libraryManagementSystem.model.User;
 import com.nadish.libraryManagementSystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,10 @@ import java.util.Optional;
 public class BookController {
     @Autowired
     private BookService bookService;
-    @GetMapping
-    public ResponseEntity<List<Book>> allBooks(){
-        return new ResponseEntity<List<Book>>(bookService.allBooks(), HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<Book>> allBooks(){
+//        return new ResponseEntity<List<Book>>(bookService.getAllBooks(), HttpStatus.OK);
+//    }
     //    @GetMapping("/{id}")
 //    public ResponseEntity<Optional<Book>> singleBook(@PathVariable ObjectId id) {
 //        return new ResponseEntity<Optional<Book>>(bookService.singleBook(id), HttpStatus.OK);
@@ -40,6 +41,15 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping
+    public ResponseEntity<List<Book>> getBooks() {
+        List<Book> books = bookService.getAllBooks();
+        if (!books.isEmpty()) {
+            return ResponseEntity.ok(books);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     @DeleteMapping("/{bookId}")
     public ResponseEntity<Void> deleteBook(@PathVariable String bookId) {
         bookService.deleteBook(bookId);
@@ -51,11 +61,11 @@ public class BookController {
         return new ResponseEntity<Book>(newBook, HttpStatus.CREATED);
     }
 
-//    @PutMapping("/{bookId}")
-//    public ResponseEntity<Book> updateBook(@PathVariable String bookId, @RequestBody Book updatedBook) {
-//        Book book = bookService.updateBook(bookId, updatedBook);
-//        return ResponseEntity.ok().body(book);
-//    }
+    @PutMapping("/{bookId}")
+    public ResponseEntity<Book> updateBook(@PathVariable String bookId, @RequestBody Book updatedBook) {
+        Book book = bookService.updateBook(bookId, updatedBook);
+        return ResponseEntity.ok().body(book);
+    }
 
 
 //    @GetMapping("/admin/{isAdmin}")

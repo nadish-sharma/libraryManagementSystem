@@ -17,8 +17,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Book {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private ObjectId id;
+//    private ObjectId ID;
     @NotBlank(message = "This field can't be empty")
+    private String id;
     private String bookId;
     @NotBlank(message = "This field can't be empty")
     private String authorName;
@@ -36,7 +37,7 @@ public class Book {
     private boolean isLibraryBook = true;
 //    @NotBlank(message = "This field can't be empty")
     private String amount = "FREE";
-    private Object img;
+    private Object thumbnail;
 }
 
 
